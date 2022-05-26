@@ -1,9 +1,13 @@
 package com.snake;
 
+import com.snake.observer.IObservable;
+import com.snake.observer.IObserver;
+
 import java.util.Random;
 
-class Food extends Point {
+class Food extends Point implements IObservable {
     Random random = new Random();
+    GameSnake gameSnake;
 
     public Food() {
         super(-1,-1);
@@ -29,4 +33,18 @@ class Food extends Point {
     }
 
 
+    @Override
+    public void registerObserver(IObserver observer) {
+        gameSnake = (GameSnake) observer;
+    }
+
+    @Override
+    public void removeObserver(IObserver observer) {
+        gameSnake = null;
+    }
+
+    @Override
+    public void notifyObservers() {
+        gameSnake.update(this);
+    }
 }

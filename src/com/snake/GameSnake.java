@@ -1,13 +1,16 @@
 package com.snake;
 
+import com.snake.observer.IObserver;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GameSnake {
+public class GameSnake implements IObserver {
     static Snake snake;
     public static Food food;
+    public static int score = 0;
     //Poison poison;
     static JFrame frame;
     Canvas canvasPanel;
@@ -18,7 +21,7 @@ public class GameSnake {
         new GameSnake().go();
     }
     void go(){
-        frame = new JFrame(Constants.TITLE_OF_PROGRAM + " : " + Constants.START_SNAKE_SIZE);
+        frame = new JFrame(Constants.TITLE_OF_PROGRAM + ". Score : " + score);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(Constants.FILLED_WIDTH * Constants.POINT_RADIUS + Constants.FILLED_DX, Constants.FILLED_HEIGHT * Constants.POINT_RADIUS + Constants.FILLED_DY);
         frame.setLocation(Constants.START_LOCATION,Constants.START_LOCATION);
@@ -39,6 +42,7 @@ public class GameSnake {
 
         snake = new Snake(Constants.START_SNAKE_X, Constants.START_SNAKE_Y, Constants.START_SNAKE_SIZE, Constants.START_DIRECTION);
         food = new Food();
+        food.registerObserver(this);
 
         while(!gameOver) {
             snake.move();
@@ -52,5 +56,12 @@ public class GameSnake {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void update(Object obj) {
+        food.eat();
+        score += 1;
+        frame.setTitle(Constants.TITLE_OF_PROGRAM + ". Score : " + score);
     }
 }
