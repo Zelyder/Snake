@@ -40,8 +40,7 @@ public class Snake {
         GameSnake.gameOver = isInsideSnake(x,y);
         snake.add(0, new Point(x,y));
         if(isFood(GameSnake.food)) {
-            GameSnake.food.eat();
-            GameSnake.frame.setTitle(Constants.TITLE_OF_PROGRAM + " : " + snake.size());
+            GameSnake.food.notifyObservers();
         }else{
             snake.remove(snake.size()-1);
         }
