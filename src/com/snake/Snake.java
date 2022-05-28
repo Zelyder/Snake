@@ -1,30 +1,39 @@
 package com.snake;
 
+import com.snake.points.AbstractFood;
+import com.snake.points.AbstractSnakeSegment;
+import com.snake.points.Point;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Snake {
-    ArrayList<Point> snake = new ArrayList<Point>();
+    private ArrayList<AbstractSnakeSegment> snake = new ArrayList<>();
     int direction;
 
     public Snake(int x, int y, int length, int direction){
-        for(int i = 0; i<length; i++){
-            Point point = new Point(x-i, y);
-            snake.add(point);
+        for(int i = 0; i < length; i++){
+            snake.add(GameSnake.pointFactory.createSnakeSegment(x-i, y));
         }
         this.direction = direction;
     }
-    boolean isInsideSnake(int x, int y){
-        for(Point point : snake){
-            if((point.getX() == x) && (point.getY() == y)) {
+    public boolean isInsideSnake(Point point){
+        for(Point segment : snake){
+            if(segment.isIntersects(point)) {
                 return true;
             }
         }
         return false;
     }
 
-    boolean isFood (Point food) {
-        return ((snake.get(0).getX() == food.getX()) && (snake.get(0).getY() == food.getY()));
+    boolean isFeed () {
+        for (AbstractFood food : GameSnake.food) {
+            if (snake.get(0).isIntersects(food)) {
+                food.notifyObservers();
+                return true;
+            }
+        }
+        return false;
     }
     void move(){
         int x = snake.get(0).getX();
@@ -35,14 +44,13 @@ public class Snake {
         if(direction == Constants.DOWN){y++;}
         if(x > Constants.FILLED_WIDTH - 1){x=0;}
         if(x < 0){x = Constants.FILLED_WIDTH-1;}
-        if(y > Constants.FILLED_WIDTH - 1){y=0;}
+        if(y > Constants.FILLED_HEIGHT - 1){y=0;}
         if(y < 0){y = Constants.FILLED_HEIGHT-1;}
-        GameSnake.gameOver = isInsideSnake(x,y);
-        snake.add(0, new Point(x,y));
-        if(isFood(GameSnake.food)) {
-            GameSnake.food.notifyObservers();
-        }else{
-            snake.remove(snake.size()-1);
+        AbstractSnakeSegment newSegment = GameSnake.pointFactory.createSnakeSegment(x, y);
+        GameSnake.gameOver = isInsideSnake(newSegment);
+        snake.add(0, newSegment);
+        if (!isFeed()) {
+            snake.remove(snake.size() - 1);
         }
     }
 
