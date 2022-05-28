@@ -11,7 +11,7 @@ public abstract class AbstractSnakeSegment extends Point {
 
     @Override
     public void paint(Graphics g) {
-        g.setColor(this.color);
+        g.setColor(this.pointView.getColor());
         g.fillRoundRect (
                 x * Constants.POINT_RADIUS,
                 y * Constants.POINT_RADIUS,

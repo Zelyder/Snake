@@ -2,6 +2,7 @@ package com.snake;
 
 import com.snake.points.AbstractFood;
 import com.snake.points.AbstractPointFactory;
+import com.snake.points.PointView;
 import com.snake.points.apple.AppleFactory;
 import com.snake.points.pear.PearFactory;
 

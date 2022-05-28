@@ -6,10 +6,10 @@ import java.awt.*;
 
 public class Point {
     protected int x,y;
-    protected Color color = Constants.DEFAULT_COLOR;
+    protected PointView pointView;
 
     public void paint(Graphics g){
-        g.setColor(color);
+        g.setColor(pointView.getColor());
         g.fillOval(x * Constants.POINT_RADIUS, y * Constants.POINT_RADIUS, Constants.POINT_RADIUS, Constants.POINT_RADIUS);
     }
 
