@@ -1,5 +1,7 @@
 package com.snake;
 
+import com.snake.points.AbstractFood;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,7 +11,9 @@ public class Canvas extends JPanel {
     public void paint (Graphics q) {
         super.paint(q);
         GameSnake.snake.paint(q);
-        GameSnake.food.paint(q);
+        for (AbstractFood abstractFood : GameSnake.food) {
+            abstractFood.paint(q);
+        }
         if (GameSnake.gameOver) {
             q.setColor(Color.red);
             q.setFont(new Font("Arial", Font.BOLD, 38));
