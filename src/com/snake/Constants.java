@@ -12,7 +12,7 @@ public class Constants {
     public static final int FILLED_DX = 6;
     public static final int FILLED_DY = 28;
     public static final int START_LOCATION = 200;
-    public static final int START_SNAKE_SIZE = 7;
+    public static final int START_SNAKE_SIZE = 2;
     public static final int START_SNAKE_X = 10;
     public static final int START_SNAKE_Y = 10;
     public static final int SHOW_DELAY = 150;

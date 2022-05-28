@@ -29,7 +29,7 @@ public class Snake {
     boolean isFeed () {
         for (AbstractFood food : GameSnake.food) {
             if (snake.get(0).isIntersects(food)) {
-                food.eat();
+                food.notifyObservers();
                 return true;
             }
         }
@@ -49,9 +49,7 @@ public class Snake {
         AbstractSnakeSegment newSegment = GameSnake.pointFactory.createSnakeSegment(x, y);
         GameSnake.gameOver = isInsideSnake(newSegment);
         snake.add(0, newSegment);
-        if (isFeed()) {
-            GameSnake.frame.setTitle(Constants.TITLE_OF_PROGRAM + " : " + snake.size());
-        }else{
+        if (!isFeed()) {
             snake.remove(snake.size() - 1);
         }
     }
@@ -68,9 +66,5 @@ public class Snake {
         for(Point point : snake) {
             point.paint(g);
         }
-    }
-
-    public int getSize() {
-        return snake.size();
     }
 }
