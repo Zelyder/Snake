@@ -9,4 +9,8 @@ public class PearSnakeSegment extends AbstractSnakeSegment {
         super(x, y);
         this.pointView = pointView;
     }
+
+    public PearSnakeSegment(AbstractSnakeSegment segment) {
+        super(segment);
+    }
 }

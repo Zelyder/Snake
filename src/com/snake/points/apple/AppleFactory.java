@@ -34,4 +34,9 @@ public class AppleFactory extends AbstractPointFactory {
         PointView appleSegmentView = getPointView(Constants.APPLE_SEGMENT_COLOR);
         return new AppleSnakeSegment(x, y, appleSegmentView);
     }
+
+    @Override
+    public AbstractSnakeSegment createSnakeSegment(AbstractSnakeSegment segment) {
+        return new AppleSnakeSegment(segment);
+    }
 }

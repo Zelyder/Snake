@@ -50,7 +50,11 @@ public class Snake {
         GameSnake.gameOver = isInsideSnake(newSegment);
         snake.add(0, newSegment);
         if (!isFeed()) {
-            snake.remove(snake.size() - 1);
+            snake.remove(0);
+            for (int i = snake.size() - 1; i >= 1; i--) {
+                snake.get(i).setXY(snake.get(i - 1).getX(), snake.get(i - 1).getY());
+            }
+            snake.get(0).setXY(x, y);
         }
     }
 

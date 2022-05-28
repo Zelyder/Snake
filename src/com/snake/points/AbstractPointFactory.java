@@ -24,4 +24,5 @@ public abstract class AbstractPointFactory {
     }
     public abstract AbstractFood createFood();
     public abstract AbstractSnakeSegment createSnakeSegment(int x, int y);
+    public abstract AbstractSnakeSegment createSnakeSegment(AbstractSnakeSegment segment);
 }

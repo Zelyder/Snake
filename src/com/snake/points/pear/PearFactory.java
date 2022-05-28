@@ -35,4 +35,9 @@ public class PearFactory extends AbstractPointFactory {
         PointView pearSegmentView = getPointView(Constants.PEAR_SEGMENT_COLOR);
         return new PearSnakeSegment(x, y, pearSegmentView);
     }
+
+    @Override
+    public AbstractSnakeSegment createSnakeSegment(AbstractSnakeSegment segment) {
+        return new PearSnakeSegment(segment);
+    }
 }

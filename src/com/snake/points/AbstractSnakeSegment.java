@@ -9,6 +9,12 @@ public abstract class AbstractSnakeSegment extends Point {
         this.setXY(x, y);
     }
 
+    public AbstractSnakeSegment(AbstractSnakeSegment segment) {
+        this.x = segment.getX();
+        this.y = segment.getY();
+        this.pointView = segment.pointView;
+    }
+
     @Override
     public void paint(Graphics g) {
         g.setColor(this.pointView.getColor());
